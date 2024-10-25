@@ -1,9 +1,9 @@
 # Team Members: 🙌
 
-**•	Sneha Das
-•	Ritik Kumar
-• Kushagar Singh
-•	Sahil Raj**
+**•	Sneha Das                         
+•	Ritik Kumar                         
+• Kushagar Singh                     
+•	Sahil Raj** 
 
 # Objective
 The object of the Tower of Hanoi puzzle is to move all the disks from the source peg to the target peg, following these rules:
@@ -21,12 +21,12 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
    - JavaScript (Frontend logic and interactivity)
 
 ### 2. Core Components
-  ** - Java Classes:**
+   - Java Classes:
      * TowerOfHanoi: Main program entry
      * TowerSolver: Algorithm implementation
      * Towers: Data structure management
    
-   **- Web Components:**
+   - Web Components:
      * HTML: Structure and content
      * CSS: Styling and animations
      * JavaScript: Game logic and user interaction
