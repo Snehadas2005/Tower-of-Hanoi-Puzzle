@@ -5,16 +5,16 @@
 • Kushagar Singh                     
 •	Sahil Raj** 
 
-# Objective
+# Objective 🎯
 The object of the Tower of Hanoi puzzle is to move all the disks from the source peg to the target peg, following these rules:
 1.	Only one disk can be moved at a time.
 2.	A larger disk cannot be placed on top of a smaller disk.
 The puzzle's challenge lies in finding the optimal sequence of moves to complete the task efficiently.
  
-# Problem Statement
+# Problem Statement 🤔
 Given a set of n disks of different sizes stacked on a source peg, the problem is finding the minimum number of moves required to transfer all the disks to the target peg, following the Tower of Hanoi puzzle rules.
 
-# Technical Stack Overview
+# Technical Stack Overview ⚙️
 ### 1. Programming Languages
    - Java (Backend logic)
    - HTML5/CSS3 (Frontend structure and styling)
