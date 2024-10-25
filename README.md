@@ -1,8 +1,8 @@
 # Team Members: 🙌
 
-**•	Sneha Das    			                                
+**•	Sneha Das
 •	Ritik Kumar
-• Kushagar Singh  
+• Kushagar Singh
 •	Sahil Raj**
 
 # Objective
