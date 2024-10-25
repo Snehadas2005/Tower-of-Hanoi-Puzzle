@@ -1,9 +1,9 @@
 # Team Members: 🙌
 
-•	Sneha Das    			                                
-•	Ritik Kumar   	
-•	Kushagar Singh  
-•	Sahil Raj
+**•	Sneha Das    			                                
+•	Ritik Kumar
+• Kushagar Singh  
+•	Sahil Raj**
 
 # Objective
 The object of the Tower of Hanoi puzzle is to move all the disks from the source peg to the target peg, following these rules:
