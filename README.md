@@ -1,55 +1,127 @@
-# Team Members: 🙌
+# Tower of Hanoi Project 🎮
+
+## Team Members: 🙌
 **•	Sneha Das                         
 •	Ritik Kumar                         
 • Kushagr Singh                     
-•	Sahil Raj** 
+•	Sahil Raj**
 
-# Objective 🎯
+## Objective 🎯
 The object of the Tower of Hanoi puzzle is to move all the disks from the source peg to the target peg, following these rules:
 1.	Only one disk can be moved at a time.
 2.	A larger disk cannot be placed on top of a smaller disk.
 The puzzle's challenge lies in finding the optimal sequence of moves to complete the task efficiently.
- 
-# Problem Statement 🤔
+
+## Problem Statement 🤔
 Given a set of n disks of different sizes stacked on a source peg, the problem is finding the minimum number of moves required to transfer all the disks to the target peg, following the Tower of Hanoi puzzle rules.
 
-# Technical Stack Overview ⚙
+## Project Setup Guide 🛠️
+### 1. Development Environment Setup
+- Install Java Development Kit (JDK) 17 or later
+- Configure JAVA_HOME environment variable
+- Install preferred IDE (Eclipse/IntelliJ IDEA)
+- Install MySQL Server and MySQL Workbench
+- Configure Maven for dependency management
+
+### 2. Database Setup
+- Create MySQL database schema
+- Configure database connection properties
+- Execute initial database scripts
+- Set up user authentication tables
+- Configure connection pooling
+
+### 3. Project Structure 📁
+```
+com/
+  ├── hanoiheights/
+  |    ├── DatabaseConnection.java
+  |    ├── ScoreDAO.java
+  |    └── UserDAO.java
+  |└── webapp/
+  |    ├── css/
+  |    │   └── styles.css
+  |    ├── js/
+  |    │   ├── game.js
+  |    │   └── scoreboard.js
+  |    ├── game.html
+  |    ├── login.html
+  |    ├── register.html
+  |    ├── scoreboard.html
+  |    ├── README.md
+  |    └── database_schema.sql
+  └──readme.md
+```
+
+## Technical Stack Overview ⚙
 ### 1. Programming Languages
    - Java (Backend logic)
    - HTML5/CSS3 (Frontend structure and styling)
    - JavaScript (Frontend logic and interactivity)
+   - SQL (Database operations)
 
 ### 2. Core Components
    - Java Classes:
      * TowerOfHanoi: Main program entry
      * TowerSolver: Algorithm implementation
      * Towers: Data structure management
+     * DAO Classes: Database operations
+     * Service Classes: Business logic
    
    - Web Components:
      * HTML: Structure and content
-     * CSS: Styling and animations
-     * JavaScript: Game logic and user interaction
+     * CSS/Bootstrap: Styling and responsiveness
+     * JavaScript: Game logic and validation
+     * JDBC: Database connectivity
 
 ### 3. Data Management
+   - MySQL Database
+   - JDBC for database operations
    - Local Storage for user data
    - Array-based data structures
    - JSON for data serialization
 
 ### 4. Features
-   - User authentication
+   - User authentication with database integration
    - Interactive gameplay
-   - Score tracking
+   - Score tracking with persistence
    - Auto-solver
    - Move validation
    - Progress tracking
+   - Form validation
+   - User profile management
 
 ### 5. Development Environment
    - Java Development Kit (JDK)
+   - MySQL Database
    - Web development tools
    - Version control system
+   - Maven for dependency management
 
-# Tower of Hanoi - Future Development Plans 🎮
+## Database Schema 💾
+### Tables:
+1. Users
+   - user_id (PK)
+   - username
+   - password
+   - email
+   - created_at
 
+2. GameProgress
+   - progress_id (PK)
+   - user_id (FK)
+   - level
+   - moves
+   - completion_time
+   - date_played
+
+3. UserStats
+   - stats_id (PK)
+   - user_id (FK)
+   - total_games
+   - best_score
+   - average_moves
+
+## Tower of Hanoi - Future Development Plans 🎮
 ### Planned Enhancements:
 - 3D visualization using Three.js/WebGL
 - Multiplayer mode with real-time competition
@@ -68,4 +140,12 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 - Multi-language support
 - Accessibility features for differently-abled users
 
-🚀 This project aims to transform a classic puzzle into an engaging, modern gaming experience while maintaining its educational value. Join us in making learning fun! 🌟
+## Getting Started 🚀
+1. Clone the repository
+2. Set up the development environment
+3. Configure database connection
+4. Run database scripts
+5. Build and run the project
+6. Access the application at localhost:3306
+
+🌟 This project aims to transform a classic puzzle into an engaging, modern gaming experience while maintaining its educational value. Join us in making learning fun! 🎯
