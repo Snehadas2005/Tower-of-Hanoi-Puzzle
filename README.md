@@ -18,11 +18,9 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 
 ## Project Setup Guide 🛠️
 ### 1. Development Environment Setup
-- Install Java Development Kit (JDK) 17 or later
-- Configure JAVA_HOME environment variable
-- Install preferred IDE (Eclipse/IntelliJ IDEA)
-- Install MySQL Server and MySQL Workbench
-- Configure Maven for dependency management
+- Install Java JDK (version 8 or higher)
+- Install MySQL Server
+- Set up your preferred IDE (Eclipse, IntelliJ, etc.)
 
 ### 2. Database Setup
 - Create MySQL database schema
@@ -30,8 +28,16 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 - Execute initial database scripts
 - Set up user authentication tables
 - Configure connection pooling
+  
+### 3. The application features:
+- Secure user registration and login system
+- Interactive Tower of Hanoi game
+- Score tracking and history
+- Responsive design using Bootstrap
+- Form validation
+- Database persistence of user data and scores
 
-### 3. Project Structure 📁
+### 4. Project Structure 📁
 ```
 com/
   ├── hanoiheights/
