@@ -44,7 +44,7 @@ com/
   |    ├── DatabaseConnection.java
   |    ├── ScoreDAO.java
   |    └── UserDAO.java
-  |└── webapp/
+  ├── webapp/
   |    ├── css/
   |    │   └── styles.css
   |    ├── js/
@@ -56,7 +56,9 @@ com/
   |    ├── scoreboard.html
   |    ├── README.md
   |    └── database_schema.sql
-  └──readme.md
+  ├──README.md
+  |
+  └──pom.xml
 ```
 
 ## Technical Stack Overview ⚙
