@@ -8,8 +8,9 @@
 
 ## Objective 🎯
 The object of the Tower of Hanoi puzzle is to move all the disks from the source peg to the target peg, following these rules:
-1.	Only one disk can be moved at a time.
-2.	A larger disk cannot be placed on top of a smaller disk.
+1. Only one disk can be moved at a time.
+2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack. In other words, a disk can only be moved if it the uppermost disk on a stack.
+3. No larger disk may be placed on top of a smaller disk.
 The puzzle's challenge lies in finding the optimal sequence of moves to complete the task efficiently.
 
 ## Problem Statement 🤔
