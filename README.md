@@ -1,10 +1,10 @@
 # Tower of Hanoi Project 🎮
 
 ## Team Members: 🙌
-**•	Sneha Das                         
-•	Ritik Kumar                         
-• Kushagr Singh                     
-•	Sahil Raj**
+**•	Sneha Das - 23SCSE1280020                              
+•	Ritik Kumar  - 23SCSE1280018                               
+• Kushagr Singh - 23SCSE1280072                          
+•	Sahil Raj    - 23SCSE1280059**
 
 ## Objective 🎯
 The object of the Tower of Hanoi puzzle is to move all the disks from the source peg to the target peg, following these rules:
@@ -39,26 +39,29 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 
 ### 4. Project Structure 📁
 ```
-com/
-  ├── hanoiheights/
-  |    ├── DatabaseConnection.java
-  |    ├── ScoreDAO.java
-  |    └── UserDAO.java
-  ├── webapp/
-  |    ├── css/
-  |    │   └── styles.css
-  |    ├── js/
-  |    │   ├── game.js
-  |    │   └── scoreboard.js
-  |    ├── game.html
-  |    ├── login.html
-  |    ├── register.html
-  |    ├── scoreboard.html
-  |    ├── README.md
-  |    └── database_schema.sql
-  ├──README.md
-  |
-  └──pom.xml
+Tower-of-hanoi-puzzle/
+├── README.md
+└── HanoiPuzzle/
+    ├── lib/
+    │   ├── DatabaseConnection.java
+    │   └── database_schema.sql
+    ├── src/
+    │   └── main/
+    │       └── com/hanoiheights/
+    │           ├── ScoreDAO.java
+    │           └── UserDAO.java
+    ├── webapp/
+    │   ├── css/
+    │   │   └── styles.css
+    │   ├── js/
+    │   │   ├── game.js
+    │   │   └── scoreboard.js
+    │   ├── game.html
+    │   ├── login.html
+    │   ├── register.html
+    │   └── scoreboard.html
+    └── pom.xml
+
 ```
 
 ## Technical Stack Overview ⚙
