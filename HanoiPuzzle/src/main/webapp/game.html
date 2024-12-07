@@ -173,7 +173,30 @@
             color: #ffd700;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        
+
+        .end-game-button { 
+            background: linear-gradient(45deg, #f44336, #d32f2f); 
+            color: white; 
+            border: none; padding: 12px 24px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+            transition: transform 0.2s; 
+            text-decoration: none;  
+        }
+
+        .end-game-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-group { display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 10px; 
+        }
+
     </style>
 </head>
 <body>
@@ -189,8 +212,12 @@
                 <label for="diskCount">Number of Disks:</label>
                 <input type="number" id="diskCount" value="3" min="3" max="8">
             </div>
-            <button class="start-button" onclick="startGame()">Start Game</button>
+            <div class="button-group"> 
+                <button class="start-button btn btn-primary" onclick="startGame()">Start Game</button> 
+                <a href="game_history.html" class="end-game-button">End Game</a> 
+            </div>
         </div>
+
         <div class="stats-panel">
             <div class="stats-header">Game Stats</div>
             <div class="stat-item">Moves: <span id="moves">0</span></div>
@@ -388,7 +415,7 @@
                 dragOffset: { x: 0, y: 0 },
                 towerRects: []
             };
-            
+
             // Reset timer
             clearInterval(gameState.gameTimer);
             gameState.gameTimer = setInterval(updateTimer, 1000);
