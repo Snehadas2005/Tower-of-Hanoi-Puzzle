@@ -3,53 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanoi Heights - Register</title>
+    <title>Tower of Hanoi - Sign Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('extra/Hanoi.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .signup-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #passwordStrength {
+            height: 5px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container mt-5">
+<body>
+    <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="text-center mb-0">Register for Hanoi Heights</h3>
+            <div class="col-md-6 signup-container">
+                <h2 class="text-center mb-4">Sign Up</h2>
+                <form id="registrationForm" onsubmit="return validateForm()">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" required
+                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$"
+                               title="Password of 7 characters, include uppercase, lowercase, number, and special character">
                     </div>
-                    <div class="card-body">
-                        <form action="register" method="post" onsubmit="return validateForm()">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="rePassword" class="form-label">Re-enter Password</label>
-                                <input type="password" class="form-control" id="rePassword" name="rePassword" required>
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                                <a href="login.html" class="btn btn-secondary">Back to Login</a>
-                            </div>
-                        </form>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                        <div id="passwordStrength" class="progress"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="profilePicture" class="form-label">Profile Picture</label>
+                        <input type="file" class="form-control" id="profilePicture" accept="image/*">
+                    </div>
+                    <div>
+                        <a href="game.html" type="button" class="btn btn-primary w-100">Let's Start</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+    <script>
+        function validateForm() {
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const passwordStrength = document.getElementById('passwordStrength');
+
+            // Password strength indicator
+            const strengthColors = ['red', 'orange', 'yellow', 'green'];
+            const strengthWidth = [25, 50, 75, 100];
+            
+            password.addEventListener('input', function() {
+                const strength = calculatePasswordStrength(this.value);
+                passwordStrength.style.width = `${strengthWidth[strength]}%`;
+                passwordStrength.style.backgroundColor = strengthColors[strength];
+            });
+
+            if (password.value !== confirmPassword.value) {
+                alert('Passwords do not match!');
+                return false;
+            }
+            return true;
+        }
+
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            if (password.length > 7) strength++;
+            if (password.match(/[a-z]+/)) strength++;
+            if (password.match(/[A-Z]+/)) strength++;
+            if (password.match(/[0-9]+/)) strength++;
+            if (password.match(/[$@#&!]+/)) strength++;
+            return Math.min(strength, 3);
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/game.js"></script>
+</body>
+</html>
