@@ -16,6 +16,10 @@ The object of the Tower of Hanoi puzzle is to move all the disks from the source
 ## Problem Statement 🤔
 Given a set of n disks of different sizes stacked on a source peg, the problem is finding the minimum number of moves required to transfer all the disks to the target peg, following the Tower of Hanoi puzzle rules.
 
+## Project HomePage demp
+[hanoihome.webm](https://github.com/user-attachments/assets/59e707b4-0c47-4067-95d7-e44871207946)
+
+
 ## Project Setup Guide 🛠️
 ### 1. Development Environment Setup
 - Install Java JDK (version 8 or higher)
