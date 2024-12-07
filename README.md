@@ -27,7 +27,7 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 ![Screenshot 2024-12-07 122401](https://github.com/user-attachments/assets/f4d7fef3-b14f-4140-815f-76fda85225a4)
 
 ### Game Page
-![Screenshot 2024-12-07 122233](https://github.com/user-attachments/assets/db176f21-889a-4ad9-8c87-e10dfbd27b98)
+![Screenshot 2024-12-07 133455](https://github.com/user-attachments/assets/6bf58f39-5cb3-4876-8101-5b7eddf2070b)
 
 ### Game History Page
 ![Screenshot 2024-12-07 122205](https://github.com/user-attachments/assets/32869f7f-b4ce-4731-9f93-a602c47701e6)
