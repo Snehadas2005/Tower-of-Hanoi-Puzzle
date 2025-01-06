@@ -36,7 +36,9 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 ### 1. Development Environment Setup
 - Install Java JDK (version 8 or higher)
 - Install MySQL Server
+- Install Apache Tomcat (version 9.0 or higher)
 - Set up your preferred IDE (Eclipse, IntelliJ, etc.)
+- Configure Maven for dependency management
 
 ### 2. Database Setup
 - Create MySQL database schema
@@ -50,34 +52,44 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 - Interactive Tower of Hanoi game
 - Score tracking and history
 - Responsive design using Bootstrap
-- Form validation
+- Form validation with server-side checks
 - Database persistence of user data and scores
+- Session management
+- JSP-based dynamic content generation
 
 ### 4. Project Structure 📁
 ```
 Tower-of-hanoi-puzzle/
 ├── README.md
 └── HanoiPuzzle/
-    ├── lib/
-    │   ├── DatabaseConnection.java
-    │   └── database_schema.sql
     ├── src/
     │   └── main/
-    │       └── com/hanoiheights/
-    │           ├── ScoreDAO.java
-    │           └── UserDAO.java
-    ├── webapp/
-    │   ├── css/
-    │   │   └── styles.css
-    │   ├── js/
-    │   │   ├── game.js
-    │   │   └── scoreboard.js
-    │   ├── game.html
-    │   ├── login.html
-    │   ├── register.html
-    │   └── scoreboard.html
+    │       ├── java/
+    │       │   └── com/hanoiheights/
+    │       │       ├── servlets/
+    │       │       │   ├── UserServlet.java
+    │       │       │   └── GameServlet.java
+    │       │       ├── dao/
+    │       │       │   ├── UserDAO.java
+    │       │       │   └── GameDAO.java
+    │       │       └── model/
+    │       │           ├── User.java
+    │       │           └── GameProgress.java
+    │       └── webapp/
+    │           ├── WEB-INF/
+    │           │   ├── web.xml
+    │           │   └── jsp/
+    │           │       ├── game_history.jsp
+    │           │       └── profile.jsp
+    │           ├── css/
+    │           │   └── styles.css
+    │           ├── js/
+    │           │   ├── game.js
+    │           │   └── scoreboard.js
+    │           ├── game.jsp
+    │           ├── login.jsp
+    │           └── register.jsp
     └── pom.xml
-
 ```
 
 ## Technical Stack Overview ⚙
@@ -87,52 +99,105 @@ Tower-of-hanoi-puzzle/
    - JavaScript (Frontend logic and interactivity)
    - SQL (Database operations)
 
-### 2. Core Components
+### 2. Server-side Technologies
+   - Java Servlets
+   - JavaServer Pages (JSP)
+   - JSTL (JSP Standard Tag Library)
+   - Expression Language (EL)
+   - Apache Tomcat Server
+   - Maven for dependency management
+
+### 3. Core Components
    - Java Classes:
-     * TowerOfHanoi: Main program entry
-     * TowerSolver: Algorithm implementation
-     * Towers: Data structure management
+     * TowerOfHanoi: Main game logic
+     * UserServlet: User management
+     * GameServlet: Game progress tracking
      * DAO Classes: Database operations
-     * Service Classes: Business logic
+     * Model Classes: Data structures
    
    - Web Components:
-     * HTML: Structure and content
+     * JSP Pages: Dynamic content generation
+     * JSTL Tags: Server-side logic
      * CSS/Bootstrap: Styling and responsiveness
-     * JavaScript: Game logic and validation
+     * JavaScript: Client-side game logic
      * JDBC: Database connectivity
 
-### 3. Data Management
+### 4. Data Management
    - MySQL Database
    - JDBC for database operations
-   - Local Storage for user data
-   - Array-based data structures
-   - JSON for data serialization
+   - Session management
+   - Form validation
+   - Data persistence
+   - Connection pooling
 
-### 4. Features
+### 5. Features
    - User authentication with database integration
+   - Session-based user tracking
    - Interactive gameplay
    - Score tracking with persistence
-   - Auto-solver
-   - Move validation
-   - Progress tracking
-   - Form validation
-   - User profile management
+   - Server-side validation
+   - Profile management
+   - Game history tracking
+   - Responsive UI design
 
-### 5. Development Environment
+### 6. Development Environment
    - Java Development Kit (JDK)
+   - Apache Tomcat Server
    - MySQL Database
-   - Web development tools
-   - Version control system
-   - Maven for dependency management
+   - Maven
+   - Git for version control
+   - Eclipse/IntelliJ IDE
+
+## Servlet Implementation
+### User Management
+- `/register` - User registration servlet
+  - Handles new user registration
+  - Validates user input
+  - Creates user profiles
+  
+- `/login` - Authentication servlet
+  - Manages user login
+  - Creates user sessions
+  - Handles authentication
+
+### Game Management
+- `/game` - Game progress servlet
+  - Tracks game progress
+  - Stores game statistics
+  - Manages game history
+
+### Profile Management
+- `/profile` - User profile servlet
+  - Displays user information
+  - Shows game statistics
+  - Handles profile updates
+
+## JSP Components
+### Core Pages
+- `game_history.jsp`: Displays user game history with JSTL
+- `profile.jsp`: Shows user profile and statistics
+- `game.jsp`: Main game interface
+- `error.jsp`: Error handling page
+
+### Features
+- JSTL integration for dynamic content
+- Expression Language (EL) for data access
+- Custom tag libraries
+- Bootstrap styling
+- Form validation
+- Session tracking
 
 ## Database Schema 💾
 ### Tables:
 1. Users
    - user_id (PK)
    - username
-   - password
+   - password (hashed)
    - email
+   - first_name
+   - last_name
    - created_at
+   - last_login
 
 2. GameProgress
    - progress_id (PK)
@@ -141,6 +206,7 @@ Tower-of-hanoi-puzzle/
    - moves
    - completion_time
    - date_played
+   - score
 
 3. UserStats
    - stats_id (PK)
@@ -148,32 +214,40 @@ Tower-of-hanoi-puzzle/
    - total_games
    - best_score
    - average_moves
+   - total_time_played
 
-## Tower of Hanoi - Future Development Plans 🎮
+## Future Development Plans 🎮
 ### Planned Enhancements:
-- 3D visualization using Three.js/WebGL
-- Multiplayer mode with real-time competition
-- AI-powered move suggestions
-- Social media integration for score-sharing
-- Mobile app development (iOS/Android)
-- Advanced difficulty levels with time constraints
-- Custom themes and animations
-- Global leaderboard system
-- Achievement/badge system
-- Tutorial mode with interactive learning
-- Voice commands for disk movement
-- Profile customization
-- Replay system for reviewing moves
-- Performance analytics dashboard
-- Multi-language support
-- Accessibility features for differently-abled users
+- OAuth integration for social login
+- RESTful API implementation
+- WebSocket for real-time multiplayer
+- Advanced statistics tracking
+- Mobile responsiveness improvements
+- Performance optimization
+- Security enhancements
+- Accessibility features
+- Localization support
+- Advanced difficulty levels
+- Achievement system
+- Social sharing features
 
 ## Getting Started 🚀
 1. Clone the repository
-2. Set up the development environment
-3. Configure database connection
-4. Run database scripts
-5. Build and run the project
-6. Access the application at localhost:3306
+2. Install dependencies using Maven
+3. Configure Tomcat server
+4. Set up MySQL database
+5. Update database credentials in `context.xml`
+6. Deploy the application
+7. Access at `http://localhost:8080/hanoi-heights`
 
-🌟 This project aims to transform a classic puzzle into an engaging, modern gaming experience while maintaining its educational value. Join us in making learning fun! 🎯
+## Security Considerations 🔒
+- Password hashing implementation
+- SQL injection prevention
+- XSS protection
+- CSRF tokens
+- Session management
+- Input validation
+- Error handling
+- Secure configuration
+
+🌟 Contributing to this project? Please read our contribution guidelines and code of conduct before submitting pull requests. Join us in making learning fun! 🎯
