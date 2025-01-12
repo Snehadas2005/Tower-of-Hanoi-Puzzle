@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="24929c8b-59da-461e-a9df-6f3e5fd7fdaf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Tower-of-Hanoi-Puzzle.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HanoiPuzzle/lib/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/HanoiPuzzle/lib/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HanoiPuzzle/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/HanoiPuzzle/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/game.html" beforeDir="false" afterPath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/scoreboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/HanoiPuzzle/src/main/webapp/scoreboard.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Snehadas2005&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Snehadas2005/Tower-of-Hanoi-Puzzle.git&quot;,
+    &quot;accountId&quot;: &quot;40cdd458-183a-4845-9f62-6e52aedbb7af&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="17" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="17" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2p2ETl4ikUbQBkxulSfCgxJZnhu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "JUnit.All in hanoi-heights.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/SNEHA DAS/Desktop/Tower-of-Hanoi-Puzzle-main",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner"
+  }
+}]]></component>
+  <component name="QodanaReportsService">
+    <option name="descriptions">
+      <ReportDescription localRun="true" path="C:\Users\SNEHAD~1\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="47e46f76-437d-4dc0-8354-f09917f4619c" reportId="Tower-of-Hanoi-Puzzle/qodana/2024-11-19" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="All in hanoi-heights" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hanoi-heights" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in hanoi-heights" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="24929c8b-59da-461e-a9df-6f3e5fd7fdaf" name="Changes" comment="" />
+      <created>1731955780798</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731955780798</updated>
+    </task>
+    <servers />
+  </component>
+</project>
