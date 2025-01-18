@@ -59,37 +59,89 @@ Given a set of n disks of different sizes stacked on a source peg, the problem i
 
 ### 4. Project Structure 📁
 ```
-Tower-of-hanoi-puzzle/
+tower-of-hanoi-puzzle/
+├── .gitattributes
+├── .gitignore
 ├── README.md
-└── HanoiPuzzle/
-    ├── src/
-    │   └── main/
-    │       ├── java/
-    │       │   └── com/hanoiheights/
-    │       │       ├── servlets/
-    │       │       │   ├── UserServlet.java
-    │       │       │   └── GameServlet.java
-    │       │       ├── dao/
-    │       │       │   ├── UserDAO.java
-    │       │       │   └── GameDAO.java
-    │       │       └── model/
-    │       │           ├── User.java
-    │       │           └── GameProgress.java
-    │       └── webapp/
-    │           ├── WEB-INF/
-    │           │   ├── web.xml
-    │           │   └── jsp/
-    │           │       ├── game_history.jsp
-    │           │       └── profile.jsp
-    │           ├── css/
-    │           │   └── styles.css
-    │           ├── js/
-    │           │   ├── game.js
-    │           │   └── scoreboard.js
-    │           ├── game.jsp
-    │           ├── login.jsp
-    │           └── register.jsp
-    └── pom.xml
+├── Tower_of_Hanoi.iml
+├── build.xml
+├── dependency-reduced-pom.xml
+├── manifest.iml
+├── pom.xml
+├── .vscode/
+├── database/
+├── HanoiPuzzle/
+│   ├── ExternalLibraries/
+│   │   ├── mysql-connector-java-8.0.28.jar
+│   │   └── protobuf-java-3.19.4.jar
+│   ├── TowerOfHanoi/
+│   │   ├── .idea/
+│   │   │   ├── compiler.xml
+│   │   │   ├── encodings.xml
+│   │   │   ├── jarRepositories.xml
+│   │   │   ├── misc.xml
+│   │   │   ├── modules.xml
+│   │   │   ├── vcs.xml
+│   │   │   └── workspace.xml
+│   │   └── database/
+│   │       └── database_schema.sql
+│   ├── launch project/
+│   │   └── config.xml
+│   ├── lib/
+│   │   └── DatabaseConnection.java
+│   └── src/main/
+│       └── com/hanoiheights/
+│           ├── dao/
+│           │   ├── ScoreDAO.java
+│           │   └── UserDAO.java
+│           └── model/
+│               ├── disc.java
+│               ├── game_state.java
+│               ├── move.java
+│               └── tower.java
+├── nproject/
+│   ├── private/
+│   │   ├── private.properties
+│   │   ├── private.xml
+│   │   ├── build-impl.xml
+│   │   ├── genfiles.properties
+│   │   ├── project.properties
+│   │   └── project.xml
+│   └── target/
+│       ├── maven-archiver/
+│       │   └── pom.properties
+│       └── maven-status/maven-compiler-...
+│           ├── createdFiles.lst
+│           └── inputFiles.lst
+├── util/
+│   └── Main.java
+└── webapp/
+    ├── WEB-INF/
+    │   └── web.xml
+    ├── css/
+    │   └── styles.css
+    ├── extra/
+    │   ├── Hanoi.jpg
+    │   ├── Hanoiloop.mp4
+    │   └── towerofhanoi.png
+    ├── js/
+    │   ├── components/
+    │   │   ├── game-history.js
+    │   │   └── game.js
+    │   ├── login.js
+    │   └── scoreboard.js
+    └── servlets/
+        ├── HttpServlet.java
+        ├── game-servlet.java
+        ├── servlet-implementation.java
+        ├── game.html
+        ├── game_history.html
+        ├── home.html
+        ├── jsp-pages.txt
+        ├── login.html
+        ├── register.html
+        └── scoreboard.html
+
 ```
 
 ## Technical Stack Overview ⚙
