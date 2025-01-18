@@ -3,75 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanoi Heights - Scoreboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <title>Tower of Hanoi - Scoreboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .scoreboard-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .scoreboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .score-table th {
+            background: #2980b9;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .score-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #2c3e50;
+            color: white;
+        }
+
+        .score-table tr:nth-child(even) {
+            background: #2c3e50;
+        }
+
+        .perfect-score {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h3 class="mb-0">Your Game History</h3>
-                <div>
-                    <button id="exportScoreboard" class="btn btn-light btn-sm">
-                        <i class="fas fa-download"></i> Export
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <div class="card bg-info text-white">
-                            <div class="card-body">
-                                <h5>Total Games</h5>
-                                <h2 id="gamesPlayed" class="display-6">0</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <h5>Total Score</h5>
-                                <h2 id="totalHistoryScore" class="display-6">0</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card bg-warning text-dark">
-                            <div class="card-body">
-                                <h5>Best Score</h5>
-                                <h2 id="bestScore" class="display-6">0</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<body>
+    <div class="scoreboard-container">
+        <div class="scoreboard-header">
+            <h1>🏆 Tower of Hanoi Scoreboard</h1>
+        </div>
 
-                <canvas id="performanceChart" class="mb-4"></canvas>
+        <table class="score-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Level</th>
+                    <th>Total Moves</th>
+                    <th>Optimal Moves</th>
+                    <th>Time</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="scoreboardBody">
+                <!-- Filled dynamically by JavaScript -->
+            </tbody>
+        </table>
 
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Disks</th>
-                            <th>Your Guess</th>
-                            <th>Actual Moves</th>
-                            <th>Points</th>
-                            <th>Performance</th>
-                        </tr>
-                    </thead>
-                    <tbody id="scoreboardBody">
-                        <!-- Dynamically populated by JavaScript -->
-                    </tbody>
-                </table>
-                <div class="d-grid gap-2">
-                    <a href="game.html" class="btn btn-primary">Back to Game</a>
-                </div>
-            </div>
+        <div class="controls">
+            <button onclick="window.location.href='game.html'">Back to Game</button>
+            <button onclick="refreshScores()">Refresh Scores</button>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/scoreboard.js"></script>
+
+    <script>
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            return `${mins}:${secs}`;
+        }
+
+        function refreshScores() {
+            const scores = JSON.parse(localStorage.getItem('gameHistory') || '[]')
+                .sort((a, b) => b.score - a.score);
+
+            const tbody = document.getElementById('scoreboardBody');
+            tbody.innerHTML = scores.map((score, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${score.level}</td>
+                    <td>${score.moves}</td>
+                    <td>${score.optimalMoves}</td>
+                    <td>${formatTime(score.time)}</td>
+                    <td class="${score.moves === score.optimalMoves ? 'perfect-score' : ''}">${score.score}</td>
+                </tr>
+            `).join('');
+        }
+
+        window.onload = refreshScores;
+    </script>
 </body>
 </html>
