@@ -1,226 +1,256 @@
-// Game Logic for Tower of Hanoi
-const game = {
-    currentScore: 0,
-    currentUser: null,
-    leaderboard: [],
-    settings: {
-        minDisks: 3,
-        maxDisks: 8,
-        maxGuessDeviation: 0.3 // 30% deviation allowed
-    },
-    
-    // Initialize game
-    init: function(username) {
-        this.currentUser = username;
-        this.loadLeaderboard();
-        this.resetScore();
-        this.showRulesModal();
-    },
-
-    // Show rules modal before game start
-    showRulesModal: function() {
-        const modal = `
-        <div class="modal fade" id="rulesModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tower of Hanoi Challenge</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h6>Game Objective</h6>
-                        <p>Guess the minimum number of moves required to solve the Tower of Hanoi puzzle!</p>
-                        <ol>
-                            <li>Select number of disks (3-8)</li>
-                            <li>Predict total moves needed to solve the puzzle</li>
-                            <li>Earn points based on the accuracy of your prediction</li>
-                        </ol>
-                        <h6>Rules</h6>
-                        <ul>
-                            <li>Only one disk can be moved at a time</li>
-                            <li>A larger disk cannot be placed on a smaller disk</li>
-                            <li>The goal is to move all disks to the rightmost tower</li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rulesCheckbox">
-                            <label class="form-check-label" for="rulesCheckbox">
-                                I understand the rules
-                            </label>
-                        </div>
-                        <button type="button" class="btn btn-primary" id="startGameBtn" disabled>Start Game</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        `;
+class TowerOfHanoi {
+    constructor() {
+        this.level = 1;
+        this.moves = 0;
+        this.startTime = new Date();
+        this.timer = null;
+        this.selectedDisk = null;
+        this.disks = 3; // Starting number of disks
+        this.towers = [[], [], []];
+        this.optimalMoves = Math.pow(2, this.disks) - 1;
         
-        // Append modal to body
-        $('body').append(modal);
-        
-        // Show modal
-        const rulesModal = new bootstrap.Modal('#rulesModal');
-        rulesModal.show();
+        // Initialize drag-and-drop functionality
+        this.initDragAndDrop();
+        this.init();
+    }
 
-        // Enable start button only when checkbox is checked
-        $('#rulesCheckbox').on('change', function() {
-            $('#startGameBtn').prop('disabled', !this.checked);
+    init() {
+        this.setupTowers();
+        this.setupEventListeners();
+        this.updateDisplay();
+        this.startTimer();
+    }
+
+    setupTowers() {
+        this.towers = [[], [], []];
+        for (let i = this.disks; i > 0; i--) {
+            this.towers[0].push(i);
+        }
+        this.renderTowers();
+    }
+
+    renderTowers() {
+        const towers = document.querySelectorAll('.tower');
+        towers.forEach((tower, towerIndex) => {
+            tower.innerHTML = '';
+            this.towers[towerIndex].forEach((diskSize, diskIndex) => {
+                const disk = document.createElement('div');
+                disk.className = 'disk';
+                disk.id = `disk-${diskSize}`;
+                disk.setAttribute('draggable', true);
+                disk.style.width = `${diskSize * 30 + 30}px`;
+                disk.style.bottom = `${diskIndex * 35}px`;
+                disk.style.backgroundColor = this.getDiskColor(diskSize);
+                disk.dataset.size = diskSize;
+                tower.appendChild(disk);
+            });
         });
+    }
 
-        $('#startGameBtn').on('click', function() {
-            rulesModal.hide();
-            game.startGame();
+    initDragAndDrop() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const disks = document.querySelectorAll('.disk');
+            const pegs = document.querySelectorAll('.tower');
+
+            disks.forEach(disk => {
+                disk.addEventListener('dragstart', (e) => this.handleDragStart(e, disk));
+                disk.addEventListener('dragend', (e) => this.handleDragEnd(e, disk));
+            });
+
+            pegs.forEach(peg => {
+                peg.addEventListener('dragover', (e) => e.preventDefault());
+                peg.addEventListener('drop', (e) => this.handleDrop(e, peg));
+            });
         });
-    },
+    }
 
-    // Start the game
-    startGame: function() {
-        const numDisks = parseInt($('#numDisks').val());
-        const guessedMoves = parseInt($('#guessedMoves').val());
-        
-        // Validate inputs
-        if (isNaN(numDisks) || isNaN(guessedMoves) || 
-            numDisks < this.settings.minDisks || 
-            numDisks > this.settings.maxDisks) {
-            this.showAlert(`Please enter valid number of disks (${this.settings.minDisks}-${this.settings.maxDisks}).`, 'danger');
+    handleDragStart(e, disk) {
+        const parentPeg = disk.parentElement;
+        const topDisk = parentPeg.firstElementChild;
+        if (disk !== topDisk) {
+            e.preventDefault();
             return;
         }
-
-        // Calculate actual minimum moves (2^n - 1)
-        const actualMoves = Math.pow(2, numDisks) - 1;
         
-        // Calculate score based on proximity to actual moves
-        const points = this.calculateScore(guessedMoves, actualMoves, numDisks);
-        
-        this.updateScore(points);
-        this.saveGameResult(numDisks, guessedMoves, actualMoves, points);
-        this.showGameResult(guessedMoves, actualMoves, points);
-    },
-
-    // Calculate score based on guess accuracy
-    calculateScore: function(guessed, actual, disks) {
-        const accuracy = Math.abs(guessed - actual) / actual;
-        const baseScore = disks * 10; // Base score depends on disk count
-        
-        // If guess is within acceptable deviation, award full points
-        if (accuracy <= this.settings.maxGuessDeviation) {
-            return baseScore;
-        }
-        
-        // Partial points for close guesses
-        return Math.max(0, Math.round(baseScore * (1 - accuracy)));
-    },
-
-    // Update total score
-    updateScore: function(points) {
-        this.currentScore += points;
-        $('#totalScore').text(this.currentScore);
-        $('#totalScore').addClass('score-highlight');
-        setTimeout(() => $('#totalScore').removeClass('score-highlight'), 500);
-    },
-
-    // Save game result to server
-    saveGameResult: function(disks, guessedMoves, actualMoves, points) {
-        $.ajax({
-            url: '/save-game-score',
-            method: 'POST',
-            data: {
-                username: this.currentUser,
-                disks: disks,
-                guessedMoves: guessedMoves,
-                actualMoves: actualMoves,
-                points: points
-            },
-            success: (response) => {
-                this.updateLeaderboard(response.leaderboard);
-                console.log('Game result saved');
-            },
-            error: function(xhr, status, error) {
-                console.error('Error saving game result:', error);
-            }
-        });
-    },
-
-    // Update local leaderboard
-    updateLeaderboard: function(newLeaderboard) {
-        this.leaderboard = newLeaderboard;
-        this.renderLeaderboard();
-    },
-
-    // Render leaderboard
-    renderLeaderboard: function() {
-        const leaderboardList = $('#leaderboard');
-        leaderboardList.empty();
-        
-        this.leaderboard.forEach((entry, index) => {
-            leaderboardList.append(`
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${index + 1}. ${entry.username}
-                    <span class="badge bg-primary rounded-pill">${entry.totalScore}</span>
-                </li>
-            `);
-        });
-    },
-
-    // Load initial leaderboard
-    loadLeaderboard: function() {
-        $.ajax({
-            url: '/get-leaderboard',
-            method: 'GET',
-            success: (response) => {
-                this.updateLeaderboard(response.leaderboard);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error loading leaderboard:', error);
-            }
-        });
-    },
-
-    // Show game result
-    showGameResult: function(guessed, actual, points) {
-        const resultDiv = $('#lastResult');
-        resultDiv.removeClass('alert-success alert-danger alert-warning');
-        
-        const deviation = Math.abs(guessed - actual) / actual * 100;
-        
-        if (points > 0) {
-            resultDiv.addClass('alert-success');
-            resultDiv.html(`Great prediction! You guessed ${guessed} moves. Actual moves were ${actual} (${deviation.toFixed(1)}% deviation). Earned ${points} points!`);
-        } else {
-            resultDiv.addClass('alert-warning');
-            resultDiv.html(`Close attempt! You guessed ${guessed} moves. Actual moves were ${actual} (${deviation.toFixed(1)}% deviation).`);
-        }
-        
-        resultDiv.show();
-    },
-
-    // Reset score
-    resetScore: function() {
-        this.currentScore = 0;
-        $('#totalScore').text(this.currentScore);
-        $('#lastResult').hide();
-    },
-
-    // Show alert messages
-    showAlert: function(message, type = 'info') {
-        const alertDiv = $('<div>', {
-            class: `alert alert-${type} alert-dismissible fade show`,
-            role: 'alert',
-            html: message + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>'
-        });
-        
-        $('#currentScore').prepend(alertDiv);
+        e.dataTransfer.setData('text/plain', disk.id);
+        disk.classList.add('dragging');
     }
-};
+
+    handleDragEnd(e, disk) {
+        disk.classList.remove('dragging');
+    }
+
+    handleDrop(e, targetPeg) {
+        e.preventDefault();
+        const diskId = e.dataTransfer.getData('text/plain');
+        const disk = document.getElementById(diskId);
+        
+        if (this.isValidMove(disk, targetPeg)) {
+            targetPeg.insertBefore(disk, targetPeg.firstChild);
+            this.moves++;
+            this.updateDisplay();
+            this.checkWin();
+        }
+    }
+
+    getDiskColor(size) {
+        const colors = {
+            1: 'var(--disk-1)',
+            2: 'var(--disk-2)',
+            3: 'var(--disk-3)',
+            4: 'var(--disk-4)',
+            5: 'var(--disk-5)',
+            6: 'var(--disk-6)',
+            7: 'var(--disk-7)'
+        };
+        return colors[size];
+    }
+
+    setupEventListeners() {
+        document.querySelectorAll('.tower').forEach((tower, index) => {
+            tower.addEventListener('click', () => this.handleTowerClick(index));
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => this.resetGame());
+        document.getElementById('historyBtn').addEventListener('click', () => this.showHistory());
+    }
+
+    handleTowerClick(towerIndex) {
+        if (!this.selectedDisk) {
+            if (this.towers[towerIndex].length === 0) return;
+            this.selectedDisk = towerIndex;
+            const topDisk = document.querySelector(`#tower${towerIndex} .disk:last-child`);
+            if (topDisk) topDisk.classList.add('selected');
+        } else {
+            if (this.isValidMove(this.selectedDisk, towerIndex)) {
+                this.moveDisk(this.selectedDisk, towerIndex);
+                this.moves++;
+                this.updateDisplay();
+                if (this.checkWin()) {
+                    this.handleWin();
+                }
+            }
+            const selectedDiskElement = document.querySelector('.disk.selected');
+            if (selectedDiskElement) selectedDiskElement.classList.remove('selected');
+            this.selectedDisk = null;
+        }
+    }
+
+    isValidMove(disk, targetPeg) {
+        if (targetPeg.children.length === 0) {
+            return true;
+        }
+        
+        const topDisk = targetPeg.firstElementChild;
+        const movingDiskSize = parseInt(disk.dataset.size);
+        const topDiskSize = parseInt(topDisk.dataset.size);
+        
+        return movingDiskSize < topDiskSize;
+    }
+
+    moveDisk(from, to) {
+        const disk = this.towers[from].pop();
+        this.towers[to].push(disk);
+        this.renderTowers();
+    }
+
+    checkWin() {
+        const lastPeg = document.querySelector('.tower:last-child');
+        const diskCount = this.disks;
+        
+        if (lastPeg.children.length === diskCount) {
+            let isOrdered = true;
+            let prevSize = Infinity;
+            
+            Array.from(lastPeg.children).forEach(disk => {
+                const size = parseInt(disk.dataset.size);
+                if (size > prevSize) {
+                    isOrdered = false;
+                }
+                prevSize = size;
+            });
+            
+            if (isOrdered) {
+                const endTime = new Date();
+                const timeTaken = Math.floor((endTime - this.startTime) / 1000);
+                this.handleWin(timeTaken);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    handleWin(timeTaken) {
+        const score = this.calculateScore();
+        
+        const gameData = {
+            level: this.level,
+            moves: this.moves,
+            optimalMoves: this.optimalMoves,
+            time: timeTaken,
+            score: score,
+            date: new Date().toISOString()
+        };
+
+        this.saveGameHistory(gameData);
+
+        if (this.level < 5) {
+            setTimeout(() => {
+                alert(`Congratulations! Level ${this.level} completed!\nMoves: ${this.moves}\nTime: ${timeTaken} seconds\nScore: ${score}`);
+                this.level++;
+                this.disks++;
+                this.optimalMoves = Math.pow(2, this.disks) - 1;
+                this.resetGame();
+            }, 300);
+        } else {
+            this.showHistory();
+        }
+    }
+
+    calculateScore() {
+        const movesPenalty = Math.max(0, this.moves - this.optimalMoves) * 5;
+        return Math.max(0, 100 - movesPenalty);
+    }
+
+    saveGameHistory(gameData) {
+        const history = JSON.parse(localStorage.getItem('gameHistory') || '[]');
+        history.push(gameData);
+        localStorage.setItem('gameHistory', JSON.stringify(history));
+    }
+
+    updateDisplay() {
+        document.getElementById('level').textContent = `Level: ${this.level}`;
+        document.getElementById('moves').textContent = `Moves: ${this.moves}`;
+    }
+
+    startTimer() {
+        this.startTime = new Date();
+        this.timer = setInterval(() => {
+            const time = Math.floor((Date.now() - this.startTime) / 1000);
+            const minutes = Math.floor(time / 60).toString().padStart(2, '0');
+            const seconds = (time % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }, 1000);
+    }
+
+    resetGame() {
+        clearInterval(this.timer);
+        this.moves = 0;
+        this.startTime = new Date();
+        this.selectedDisk = null;
+        this.setupTowers();
+        this.updateDisplay();
+        this.startTimer();
+    }
+
+    showHistory() {
+        const history = JSON.parse(localStorage.getItem('gameHistory') || '[]');
+        const historyText = history.map(game => 
+            `Level ${game.level}: ${game.moves} moves in ${game.time} seconds (Score: ${game.score})`
+        ).join('\n');
+        alert(historyText || 'No game history yet!');
+    }
+}
 
 // Initialize game when document is ready
-$(document).ready(function() {
-    // Check if user is logged in and set current user
-    const username = localStorage.getItem('username');
-    if (username) {
-        game.init(username);
-    } else {
-        window.location.href = 'login.html';
-    }
-});
+document.addEventListener('DOMContentLoaded', () => new TowerOfHanoi());
