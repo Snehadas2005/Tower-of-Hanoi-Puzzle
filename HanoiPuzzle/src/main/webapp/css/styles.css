@@ -1,60 +1,115 @@
+:root {
+    --disk-1: #FF4444;
+    --disk-2: #33CC33;
+    --disk-3: #3399FF;
+    --disk-4: #FFCC00;
+    --disk-5: #9933CC;
+    --disk-6: #fa7602;
+    --disk-7: #02fae0;
+    
+}
+
 body {
-    background-color: #f8f9fa;
-    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #2c3e50;
+    color: white;
 }
 
-.card {
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
+.towers-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 0;
+}
+
+.tower {
+    width: 20px;
+    height: 200px;
+    background: #95a5a6;
+    position: relative;
+    border-radius: 5px;
+}
+
+.tower::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: -50px;
+    width: 120px;
+    height: 10px;
+    background: #95a5a6;
+    border-radius: 5px;
+}
+
+.disk {
+    position: absolute;
+    height: 30px;
     border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.disk.selected {
+    box-shadow: 0 0 10px white;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1.1em;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
 }
 
-.card-header {
-    border-radius: 15px 15px 0 0 !important;
-    padding: 1.5rem;
+button:hover {
+    background: #2980b9;
 }
 
-.btn {
-    padding: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.disk {
+    cursor: grab;
+    transition: transform 0.2s;
 }
 
-.form-control {
-    padding: 0.8rem;
-    border-radius: 8px;
+.disk.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
 }
 
-.form-label {
-    font-weight: 500;
-    color: #495057;
+.peg {
+    min-height: 200px;
+    position: relative;
 }
 
-.alert {
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-
-.table {
-    margin-bottom: 2rem;
-}
-
-.table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-}
-
-#lastResult {
-    transition: all 0.3s ease;
-}
-
-.score-highlight {
-    animation: scoreUpdate 0.5s ease;
-}
-
-@keyframes scoreUpdate {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+/* Visual feedback for valid drop targets */
+.peg.dragover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
