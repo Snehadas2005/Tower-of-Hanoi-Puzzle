@@ -278,7 +278,7 @@ tower-of-hanoi-puzzle/
 
 
 
-##Indexes:
+### Indexes:
 
 1. Users:
    - idx_user_email (email)
