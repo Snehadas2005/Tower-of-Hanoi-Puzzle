@@ -241,32 +241,57 @@ tower-of-hanoi-puzzle/
 
 ## Database Schema 💾
 ### Tables:
+
 1. Users
    - user_id (PK)
-   - username
-   - password (hashed)
-   - email
+   - username (UNIQUE)
    - first_name
    - last_name
+   - email (UNIQUE)
+   - password_hash
+   - profile_picture_url
    - created_at
-   - last_login
+   - updated_at
 
-2. GameProgress
+
+3. GameProgress
    - progress_id (PK)
-   - user_id (FK)
-   - level
-   - moves
-   - completion_time
+   - user_id (FK → Users.user_id)
+   - level_number
+   - moves_taken
+   - time_taken
    - date_played
+   - is_completed
    - score
 
-3. UserStats
-   - stats_id (PK)
-   - user_id (FK)
+
+3. UserStatus
+   - status_id (PK)
+   - user_id (FK → Users.user_id)
    - total_games
-   - best_score
-   - average_moves
-   - total_time_played
+   - highest_score
+   - best_accuracy
+   - most_attempted_disks
+   - avg_disks_per_game
+   - skill_level
+   - last_played_at
+
+
+
+##Indexes:
+
+1. Users:
+   - idx_user_email (email)
+   - idx_user_username (username)
+
+
+2. GameProgress:
+   - idx_game_progress_user (user_id)
+   - idx_game_progress_date (date_played)
+
+
+3. UserStatus:
+   - idx_user_status_user (user_id)
 
 ## Future Development Plans 🎮
 ### Planned Enhancements:
